@@ -21,38 +21,47 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-11 col-md-offset-1">
-      <table class="table">
-        <th> Ticket Type</th>
-        <th> Unit Price</th>
-        <th> Quantity</th>
-
-        <% @event.ticket_types.each do |type| %>
+  <%= form_tag order_events_path, method: :post, name: :order do %>
+    <div class="row">
+      <div class="col-md-11 col-md-offset-1">
+        <table class="table">
           <tr>
-            <td> <%= type.name %> </td>
-            <td> <%= number_to_currency(type.price, unit: 'VND ', precision: 0) %> </td>
-            <td> <%= select_tag('quantity', options_for_select(0..10)) %></td>
+            <th> Ticket Type</th>
+            <th> Unit Price</th>
+            <th> Quantity</th>
           </tr>
-        <% end %>
-      </table>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-11 col-md-offset-1">
-      <div class="col-md-6 no_padding">
-        <input type="text" class="form-control input_buyer_info" id="usr" placeholder="Name" required>
-      </div>
-      <div class="col-md-6 no_padding">
-        <input type="email" class="form-control input_buyer_info" id="usr" placeholder="Email" required>
+          <%= fields_for :tickets do |f| %>
+            <%= f.hidden_field :event_id, value: "#{@event.id}" %>
+            <% @event.ticket_types.each do |type| %>
+              <tr>
+                <td> <%= type.name %> </td>
+                <td> <%= number_to_currency(type.price, unit: 'VND ', precision: 0) %> </td>
+                <td> <%= f.select "#{type.id}", options_for_select(0..10) %> </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-2 col-md-offset-5">
-      <button class="btn btn-success btn-lg btn-block"> Buy</button>
+    <%= fields_for :buyer do |f| %>
+      <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+          <div class="col-md-6 no_padding">
+            <%= f.text_field :name, class: 'form-control input_buyer_info', id: 'usr', placeholder: 'Name', required: true %>
+          </div>
+          <div class="col-md-6 no_padding">
+            <%= f.email_field :email, class: 'form-control input_buyer_info', id: 'ussr', placeholder: 'Email', required: true %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-2 col-md-offset-5">
+        <%= submit_tag 'Buy', class: 'btn btn-success btn-lg btn-block' %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
