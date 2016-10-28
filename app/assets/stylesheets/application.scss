@@ -12,8 +12,20 @@
 body {
   font-family: 'Open Sans';
 }
+
 .btn.btn-danger {
   background-color: rgb(216, 87, 66);
   border: 2px solid rgb(241, 112, 91);
 }
 
+.center_div {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  position: absolute;
+}
+
+.no_padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
