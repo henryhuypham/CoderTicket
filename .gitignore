@@ -15,3 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore project info folder
+/.idea
+

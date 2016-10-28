@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215104433) do
+ActiveRecord::Schema.define(version: 20161028050638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,34 @@ ActiveRecord::Schema.define(version: 20151215104433) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ticket_buyers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ticket_buyers", ["email"], name: "index_ticket_buyers_on_email", using: :btree
+
+  create_table "ticket_orders", force: :cascade do |t|
+    t.integer  "ticket_buyer_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "ticket_orders", ["ticket_buyer_id"], name: "index_ticket_orders_on_ticket_buyer_id", using: :btree
+
+  create_table "ticket_type_orders", force: :cascade do |t|
+    t.integer  "ticket_order_id"
+    t.integer  "ticket_buyer_id"
+    t.integer  "quantity"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "ticket_type_orders", ["ticket_buyer_id"], name: "index_ticket_type_orders_on_ticket_buyer_id", using: :btree
+  add_index "ticket_type_orders", ["ticket_order_id"], name: "index_ticket_type_orders_on_ticket_order_id", using: :btree
+
   create_table "ticket_types", force: :cascade do |t|
     t.integer  "event_id"
     t.integer  "price"
@@ -66,6 +94,9 @@ ActiveRecord::Schema.define(version: 20151215104433) do
 
   add_foreign_key "events", "categories"
   add_foreign_key "events", "venues"
+  add_foreign_key "ticket_orders", "ticket_buyers"
+  add_foreign_key "ticket_type_orders", "ticket_buyers"
+  add_foreign_key "ticket_type_orders", "ticket_orders"
   add_foreign_key "ticket_types", "events"
   add_foreign_key "venues", "regions"
 end
