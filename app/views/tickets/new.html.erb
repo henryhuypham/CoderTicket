@@ -22,6 +22,7 @@
   </div>
 
   <%= form_tag order_events_path, method: :post, name: :order do %>
+    <%= hidden_field_tag :event_id, "#{@event.id}" %>
     <div class="row">
       <div class="col-md-11 col-md-offset-1">
         <table class="table">
@@ -32,12 +33,12 @@
           </tr>
 
           <%= fields_for :tickets do |f| %>
-            <%= f.hidden_field :event_id, value: "#{@event.id}" %>
             <% @event.ticket_types.each do |type| %>
+              <% ticket_left = type.max_quantity - type.bought_quantity %>
               <tr>
                 <td> <%= type.name %> </td>
                 <td> <%= number_to_currency(type.price, unit: 'VND ', precision: 0) %> </td>
-                <td> <%= f.select "#{type.id}", options_for_select(0..10) %> </td>
+                <td> <%= f.select "#{type.id}", options_for_select(0..(ticket_left > 10 ? 10 : ticket_left)) %> </td>
               </tr>
             <% end %>
           <% end %>
