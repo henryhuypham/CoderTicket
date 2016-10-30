@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   before_action :required_login, only: [:new, :created_by_me, :create_event]
+  before_action :is_my_event, only: [:edit, :update]
+  helper_method :is_my_event
 
   def index
     if (search_term = search_param)
@@ -11,6 +13,38 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+  end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    venue = Venue.find_by(id: params[:event][:venue_id])
+    unless venue.present?
+      raise 'Invalid venue!'
+    end
+
+    category = Venue.find_by(id: params[:event][:category_id])
+    unless category.present?
+      raise 'Invalid category!'
+    end
+
+    @event = Event.find(params[:id])
+    unless @event.present?
+      raise 'Invalid event!'
+    end
+    @event.attributes = create_param
+
+    unless @event.starts_at >= Date.today
+      raise 'Event needs to be in the future!'
+    end
+    unless @event.ends_at.present? && @event.starts_at <= @event.ends_at
+      raise 'Start date must be before or equal to end date!'
+    end
+
+    @event.save!
+    redirect_to event_path(@event)
   end
 
   def create_event
@@ -76,6 +110,10 @@ class EventsController < ApplicationController
 
   def created_by_me
     @events = current_user.events
+  end
+
+  def is_my_event(event)
+    event.creator.id == current_user.id
   end
 
   private

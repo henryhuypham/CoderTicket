@@ -38,6 +38,11 @@
           <% end %>
         <% end %>
       </div>
+      <% if is_my_event(@event) %>
+        <%= link_to edit_event_path(@event) do %>
+          <button class='btn btn-lg btn-block btn-danger'>Edit</button>
+        <% end %>
+      <% end %>
       <div class="container">
         <h3> <%= @event.name %> </h3>
         <div class="pull-left">
