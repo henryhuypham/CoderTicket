@@ -1,0 +1,27 @@
+<div class='events-header' style='background-image: url(<%= header_background_image_url %>)'>
+  <div class="container" id="new_venue_form">
+    <h2>Venue</h2>
+    <%= form_for :venue, url: venues_new_path, method: :post do |f| %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.text_field :full_address, value: nil, placeholder: 'Venue Address', required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <%= f.text_field :name, value: nil, placeholder: 'Venue Name', required: true %>
+        </div>
+        <div class="col-md-3">
+          <%= f.select :region_id, options_for_select(Region.all.map { |region| [region.name, region.id] }) %>
+        </div>
+        <div class="col-md-2">
+          <%= f.submit 'Create', class: 'btn btn-success create-venue-btn' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="venue-list" class="container" style="margin-top: 10pt">
+  <%= render partial: 'venues/venue_index', collection: @venues, as: :venue %>
+</div>

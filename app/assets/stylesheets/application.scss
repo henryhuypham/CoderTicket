@@ -11,6 +11,7 @@
 @import "events";
 @import "tickets";
 @import "sessions";
+@import "venues";
 
 body {
   font-family: 'Open Sans';
@@ -31,4 +32,38 @@ body {
 .no_padding {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+#top_nav {
+  padding-left: 10pt;
+}
+
+#top_nav a {
+  display: inline-block;
+  color: #EA2A56;
+  text-decoration: none;
+  font-size: 16pt;
+}
+
+#top_nav div a {
+  padding-left: 14pt;
+  padding-right: 14pt;
+  transition: 0.1s ease;
+}
+
+#top_nav .current_action {
+  border-bottom: 2px solid #EA2A56;
+}
+
+#top_nav div a:hover {
+  border-bottom: 4px solid #EA2A56;
+}
+
+#top_nav img {
+  height: 28pt;
+}
+
+#top_nav .top_nav_action {
+  display: inline-block;
+  float: right;
 }
