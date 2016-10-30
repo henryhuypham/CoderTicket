@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
-  before_action :required_login, only: [:new, :created_by_me, :create]
+  before_action :required_login, only: [:new, :created_by_me, :create_event]
 
   def index
     if (search_term = search_param)
-      @events = Event.where('lower(name) LIKE lower(?) AND starts_at >= ?', "%#{search_term.split.join('%')}%", Date.today)
+      @events = Event.where('lower(name) LIKE lower(?) AND starts_at >= ? AND  published = ?', "%#{search_term.split.join('%')}%", Date.today, true)
     else
-      @events = Event.where('starts_at >= ?', Date.today)
+      @events = Event.where('starts_at >= ? AND published = ?', Date.today, true)
     end
   end
 
@@ -35,6 +35,22 @@ class EventsController < ApplicationController
     event.save
 
     redirect_to created_by_me_events_path
+  rescue => exception
+    flash[:error] = "Error: #{exception.message}"
+    redirect_to :back
+  end
+
+  def publish_event
+    params.require(:id)
+
+    event = Event.find_by(id: params[:id])
+    if event.present?
+      event.update!(published: true)
+      flash[:success] = 'Event Published!'
+      redirect_to controller: :events, action: :show, id: event.id
+    else
+      raise 'Invalid event!'
+    end
   rescue => exception
     flash[:error] = "Error: #{exception.message}"
     redirect_to :back

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post  :order, on: :collection
     get   :created_by_me, on: :collection
     post  :create_event, on: :collection
+    post  :publish_event, on: :collection
     resources :tickets
   end
 
