@@ -31,7 +31,7 @@
   <% if logged_in? %>
     <div id="top_nav">
       <div class="top_nav_action">
-        <%= link_to 'My Events', '#', class: "#{'current_action' if controller_name == 'events'}" %>
+        <%= link_to 'My Events', created_by_me_events_path, class: "#{'current_action' if controller_name == 'events'}" %>
         <%= link_to 'Venues', venues_index_path, class: "#{'current_action' if controller_name == 'venues'}" %>
       </div>
     </div>

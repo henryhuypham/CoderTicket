@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   root  'events#index'
 
   resources :events do
-    post :order, on: :collection
+    post  :order, on: :collection
+    get   :created_by_me, on: :collection
     resources :tickets
   end
 end

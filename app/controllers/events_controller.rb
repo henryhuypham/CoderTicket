@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :validate_order_param, only: [:order]
+  before_action :required_login, only: [:created_by_me]
 
   def index
     if (search_term = search_param)
@@ -25,6 +26,10 @@ class EventsController < ApplicationController
   rescue => exception
     flash[:error] = "Error: #{exception.message}"
     redirect_to :back
+  end
+
+  def created_by_me
+    @events = current_user.events
   end
 
   private

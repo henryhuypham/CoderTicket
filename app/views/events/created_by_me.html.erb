@@ -1,0 +1,14 @@
+<div id="event-header" class='events-header' style='background-image: url(<%= header_background_image_url %>)'>
+  <div class="container">
+    <h2>My Events</h2>
+  </div>
+</div>
+<div class="container-fluid events-list">
+  <% @events.in_groups_of(3) do |g| %>
+    <div class="row">
+      <% g.compact.each do |e| %>
+        <%= render partial: 'card', locals: {event: e} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

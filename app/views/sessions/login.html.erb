@@ -11,7 +11,7 @@
     <h1><strong>Login</strong></h1>
     <%= form_for :user, url: login_path, method: :post do |f| %>
       <%= f.text_field :email, value: '', placeholder: 'Email', id: 'username', required: true %>
-      <%= f.text_field :password, value: '', placeholder: 'Password', id: 'password', required: true %>
+      <%= f.password_field :password, value: '', placeholder: 'Password', id: 'password', required: true %>
       <%= f.button 'Login', type: 'submit', id: 'submit_button' %>
     <% end %>
   </div>
