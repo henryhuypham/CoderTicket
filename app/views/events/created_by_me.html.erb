@@ -1,6 +1,8 @@
 <div id="event-header" class='events-header' style='background-image: url(<%= header_background_image_url %>)'>
   <div class="container">
-    <h2>My Events</h2>
+    <div style="text-align: center">
+      <%= link_to 'Create Event', new_event_path, class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>
 <div class="container-fluid events-list">

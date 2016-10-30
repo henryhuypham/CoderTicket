@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :validate_order_param, only: [:order]
-  before_action :required_login, only: [:created_by_me]
+  before_action :required_login, only: [:new, :created_by_me]
 
   def index
     if (search_term = search_param)
@@ -12,6 +12,10 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+  end
+
+  def create
+
   end
 
   def order

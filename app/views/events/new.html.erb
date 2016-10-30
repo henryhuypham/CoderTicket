@@ -1,0 +1,33 @@
+<div id="event-header" class='events-header' style='background-image: url(<%= header_background_image_url %>)'>
+  <div class="container">
+    <h2>New Event</h2>
+  </div>
+
+  <div class="container" id="new-event-form">
+    <%= form_for :event, url: new_event_path, method: :post do |f| %>
+      <div class="row" style="margin-top: 10pt">
+        <div class="col-md-12">
+          <%= f.text_field :name, value: nil, placeholder: 'Event Name', required: true %>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10pt">
+        <div class="col-md-4">
+          <%= f.label 'Venue' %>
+          <%= f.select :venue_id, options_for_select(Venue.all.map { |venue| [venue.name, venue.id] }) %>
+        </div>
+        <div class="col-md-2">
+          <%= f.label 'Category' %>
+          <%= f.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }) %>
+        </div>
+        <div class="col-md-3">
+          <%= f.label 'Starts At' %>
+          <%= f.date_field :starts_at %>
+        </div>
+        <div class="col-md-3">
+          <%= f.label 'Ends At' %>
+          <%= f.date_field :ends_at %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
