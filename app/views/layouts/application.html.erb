@@ -11,15 +11,21 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
   <a class="navbar-brand" href="<%= root_path %>">Coder Ticket</a>
   <ul class="nav navbar-nav">
-    <% unless controller_name == 'sessions' && action_name == 'login' %>
+    <% if logged_in? %>
       <li class="nav-item">
-        <%= link_to 'Log In', login_path, class: 'nav-link' %>
+        <%= link_to 'Log Out', sign_out_path, class: 'nav-link' %>
       </li>
-    <% end %>
-    <% unless controller_name == 'sessions' && action_name == 'sign_up' %>
-      <li class="nav-item">
-        <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
-      </li>
+    <% else %>
+      <% unless controller_name == 'sessions' && action_name == 'login' %>
+        <li class="nav-item">
+          <%= link_to 'Log In', login_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+      <% unless controller_name == 'sessions' && action_name == 'sign_up' %>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </nav>

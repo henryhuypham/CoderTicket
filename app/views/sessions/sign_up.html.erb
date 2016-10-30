@@ -9,9 +9,11 @@
 <div id="sign_up_form">
   <div class="login-block center_div">
     <h1><strong>Sign Up</strong></h1>
-    <input type="text" value="" placeholder="Name" id="name"/>
-    <input type="text" value="" placeholder="Username" id="username"/>
-    <input type="password" value="" placeholder="Password" id="password"/>
-    <button>Submit</button>
+    <%= form_for :user, url: sign_up_path, method: :post do |f| %>
+      <%= f.text_field :name, value: '', placeholder: 'Name', id: 'name', required: true %>
+      <%= f.text_field :email, value: '', placeholder: 'Email', id: 'username', required: true %>
+      <%= f.text_field :password, value: '', placeholder: 'Password', id: 'password', required: true %>
+      <%= f.button 'Sign Up', type: 'submit', id: 'submit_button' %>
+  <% end %>
   </div>
 </div>
