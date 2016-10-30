@@ -4,7 +4,7 @@
   </div>
 
   <div class="container" id="new-event-form">
-    <%= form_for :event, url: new_event_path, method: :post do |f| %>
+    <%= form_for :event, url: create_event_events_path, method: :post do |f| %>
       <div class="row" style="margin-top: 10pt">
         <div class="col-md-12">
           <%= f.text_field :name, value: nil, placeholder: 'Event Name', required: true %>
@@ -13,20 +13,27 @@
       <div class="row" style="margin-top: 10pt">
         <div class="col-md-4">
           <%= f.label 'Venue' %>
-          <%= f.select :venue_id, options_for_select(Venue.all.map { |venue| [venue.name, venue.id] }) %>
+          <%= f.select :venue_id, options_for_select(Venue.all.map { |venue| [venue.name, venue.id] }), required: true %>
         </div>
         <div class="col-md-2">
           <%= f.label 'Category' %>
-          <%= f.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }) %>
+          <%= f.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }), required: true %>
         </div>
         <div class="col-md-3">
           <%= f.label 'Starts At' %>
-          <%= f.date_field :starts_at %>
+          <%= f.date_field :starts_at, required: true %>
         </div>
         <div class="col-md-3">
           <%= f.label 'Ends At' %>
-          <%= f.date_field :ends_at %>
+          <%= f.date_field :ends_at, required: true %>
         </div>
+      </div>
+      <div class="row" style="margin-top: 20pt; padding-left: 10pt; padding-right: 10pt">
+        <%= f.text_area :extended_html_description, class: 'tinymce', rows: 10, cols: 110 %>
+        <%= tinymce %>
+      </div>
+      <div class="row" style="margin-top: 14pt; padding-left: 10pt; padding-right: 10pt">
+        <%= f.submit 'Create', class: 'btn btn-success' %>
       </div>
     <% end %>
   </div>

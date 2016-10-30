@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
-  before_action :validate_order_param, only: [:order]
-  before_action :required_login, only: [:new, :created_by_me]
+  before_action :required_login, only: [:new, :created_by_me, :create]
 
   def index
     if (search_term = search_param)
@@ -14,8 +13,31 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
-  def create
+  def create_event
+    venue = Venue.find_by(id: params[:event][:venue_id])
+    unless venue.present?
+      raise 'Invalid venue!'
+    end
 
+    category = Venue.find_by(id: params[:event][:category_id])
+    unless category.present?
+      raise 'Invalid category!'
+    end
+
+    event = Event.new(create_param)
+    unless event.starts_at >= Date.today
+      raise 'Event needs to be in the future!'
+    end
+    unless event.ends_at.present? && event.starts_at <= event.ends_at
+      raise 'Start date must be before or equal to end date!'
+    end
+    event.creator = current_user
+    event.save
+
+    redirect_to created_by_me_events_path
+  rescue => exception
+    flash[:error] = "Error: #{exception.message}"
+    redirect_to :back
   end
 
   def order
@@ -40,6 +62,10 @@ class EventsController < ApplicationController
 
   def search_param
     params[:search][:event_name] if params[:search].present?
+  end
+
+  def create_param
+    params.require(:event).permit(:name, :venue_id, :category_id, :starts_at, :ends_at, :extended_html_description)
   end
 
   def validate_order_param

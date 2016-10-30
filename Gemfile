@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'quiet_assets'
 gem 'font-awesome-rails'
 gem 'font-kit-rails', '~> 1.2.0'
+gem 'tinymce-rails'
 
 group :development, :test do
   gem 'byebug'
