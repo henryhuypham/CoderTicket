@@ -45,6 +45,10 @@ class EventsController < ApplicationController
 
     event = Event.find_by(id: params[:id])
     if event.present?
+      unless event.ticket_types.present?
+        raise 'You need to create a ticket type before publishing this event!'
+      end
+
       event.update!(published: true)
       flash[:success] = 'Event Published!'
       redirect_to controller: :events, action: :show, id: event.id
