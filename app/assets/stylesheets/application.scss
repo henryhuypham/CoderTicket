@@ -1,13 +1,16 @@
 /*
  *= require font-kit-rails/open-sans
-*/
+**/
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 @import "bootstrap";
 @import "font-awesome";
 @import "col-helpers";
 @import "nav";
 @import "events";
 @import "tickets";
+@import "sessions";
 
 body {
   font-family: 'Open Sans';
