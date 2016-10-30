@@ -13,7 +13,10 @@ Rails.application.routes.draw do
     get   :created_by_me, on: :collection
     post  :create_event, on: :collection
     post  :publish_event, on: :collection
-    resources :tickets
+    resources :tickets do
+      get   :create_type, on: :collection
+      post  :create_type, on: :collection
+    end
   end
 
   root  'events#index'

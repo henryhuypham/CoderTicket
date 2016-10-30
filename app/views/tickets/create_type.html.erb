@@ -1,0 +1,28 @@
+<div id="event-header" class='events-header' style='background-image: url(<%= header_background_image_url %>)'>
+  <div class="container">
+    <h2>New Ticket Type</h2>
+  </div>
+
+  <div class="container" id="new-event-form">
+    <%= form_for :ticket_type, url: create_type_event_tickets_path(@event), method: :post do |f| %>
+      <div class="row" style="margin-top: 10pt">
+        <div class="col-md-12">
+          <%= f.text_field :name, value: nil, placeholder: 'Ticket Type Name', required: true %>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10pt">
+        <div class="col-md-6">
+          <%= f.label 'Price' %>
+          <%= f.text_field :price, value: nil, placeholder: '0', required: true %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label 'Max Quantity' %>
+          <%= f.number_field :max_quantity, min: 1, value: 1, required: true %>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 14pt; padding-left: 10pt; padding-right: 10pt">
+        <%= f.submit 'Create', class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+</div>
