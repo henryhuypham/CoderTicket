@@ -1,4 +1,4 @@
-#login_form {
+#login_form, #sign_up_form {
   .logo {
     width: 213px;
     height: 36px;
@@ -43,6 +43,16 @@
   }
 
   .login-block input#username:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+  }
+
+  .login-block input#name {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background-size: 16px 80px;
+  }
+
+  .login-block input#name:focus {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
     background-size: 16px 80px;
   }
