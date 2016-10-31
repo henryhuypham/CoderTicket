@@ -1,12 +1,12 @@
 # Homework 3 - *Name of App*
 
-**Name of your app** is a Ruby on Rails blog application that allows users to create and buy tickets to cool events. 
+**H-Coder-Ticket** is a Ruby on Rails blog application that allows users to create and buy tickets to cool events. 
 
-Submitted by: **Your Name Here**
+Submitted by: **Huy Pham**
 
-Time spent: **X** hours
+Time spent: **24** hours
 
-URL: **Insert your Heroku URL here**
+URL: **https://h-coder-ticket.herokuapp.com/**
 
 SimpleCov Test Coverage: **Insert percentage or link to report here**
 
@@ -55,11 +55,11 @@ The following **required** functionality is complete:
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I made a youtube video here: https://youtu.be/cu_Pf-7-Ex0, instead of a gif video.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2016] [Huy Pham]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -29,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'capybara', '~> 2.10', '>= 2.10.1'
+  gem 'simplecov', require: false
 end
 
 group :development do
