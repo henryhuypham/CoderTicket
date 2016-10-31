@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     if (search_term = search_param)
       @events = Event.search_events("%#{search_term.split.join('%')}%")
     else
-      @events = Event.valid_published_event
+      @events = Event.valid_published_events
     end
   end
 
