@@ -28,6 +28,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'capybara', '~> 2.10', '>= 2.10.1'
 end
 
 group :development do
