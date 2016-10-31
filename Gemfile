@@ -21,9 +21,13 @@ gem 'quiet_assets'
 gem 'font-awesome-rails'
 gem 'font-kit-rails', '~> 1.2.0'
 gem 'tinymce-rails'
+gem 'simplecov'
 
 group :development, :test do
   gem 'byebug'
+  gem 'guard-rspec', require: false
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
 end
 
 group :development do

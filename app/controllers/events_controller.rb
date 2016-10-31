@@ -5,9 +5,9 @@ class EventsController < ApplicationController
 
   def index
     if (search_term = search_param)
-      @events = Event.where('lower(name) LIKE lower(?) AND starts_at >= ? AND  published = ?', "%#{search_term.split.join('%')}%", Date.today, true)
+      @events = Event.search_events("%#{search_term.split.join('%')}%")
     else
-      @events = Event.where('starts_at >= ? AND published = ?', Date.today, true)
+      @events = Event.valid_published_event
     end
   end
 
@@ -20,31 +20,11 @@ class EventsController < ApplicationController
   end
 
   def update
-    venue = Venue.find_by(id: params[:event][:venue_id])
-    unless venue.present?
-      raise 'Invalid venue!'
-    end
-
-    category = Venue.find_by(id: params[:event][:category_id])
-    unless category.present?
-      raise 'Invalid category!'
-    end
-
-    @event = Event.find(params[:id])
-    unless @event.present?
-      raise 'Invalid event!'
-    end
-    @event.attributes = create_param
-
-    unless @event.starts_at >= Date.today
-      raise 'Event needs to be in the future!'
-    end
-    unless @event.ends_at.present? && @event.starts_at <= @event.ends_at
-      raise 'Start date must be before or equal to end date!'
-    end
-
-    @event.save!
+    @event = Event.update_event(create_param, params[:id], params[:event][:venue_id], params[:event][:category_id])
     redirect_to event_path(@event)
+  rescue => exception
+    flash[:error] = "Error: #{exception.message}"
+    redirect_to :back
   end
 
   def create_event
@@ -79,7 +59,7 @@ class EventsController < ApplicationController
 
     event = Event.find_by(id: params[:id])
     if event.present?
-      unless event.ticket_types.present?
+      unless event.has_enough_ticket_type?
         raise 'You need to create a ticket type before publishing this event!'
       end
 
