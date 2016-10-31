@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  before_action :required_login, only: [:new, :create_type]
+  before_action :required_login, only: [:create_type]
 
   def new
     @event = Event.find(params[:event_id])

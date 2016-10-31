@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-9 event-content">
       <div class="hero-img hidden-sm-down" style="background-image: url(<%= @event.hero_image_url %>); background-size: cover;">
-        <% unless @event.published && @event.creator.id == current_user.id %>
+        <% unless @event.published && is_my_event(@event) %>
           <%= form_tag publish_event_events_path, method: :post, class: 'center_div', name: 'event' do %>
             <%= hidden_field_tag :id, @event.id %>
             <%= submit_tag 'Publish', class: 'btn btn-primary' %>

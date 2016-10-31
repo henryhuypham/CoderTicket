@@ -31,5 +31,8 @@ class TicketOrder < ActiveRecord::Base
         event: event,
         ticket_type_orders: ticket_type_orders
     )
+  rescue => exception
+    flash[:error] = "Error: #{exception.message}"
+    redirect_to :back
   end
 end

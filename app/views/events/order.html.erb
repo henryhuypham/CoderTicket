@@ -1,0 +1,25 @@
+<div class="container-fluid tickets-buy">
+  <div class="row tickets-header">
+    <div class="col-xs-12 col-md-11 col-md-offset-1">
+      <h3> <%= @event.name %> </h3>
+      <div class="pull-left">
+        <%= fa_icon 'map-marker' %>
+      </div>
+
+      <div class="venue-details">
+        <%= @event.venue.name %>
+        <br/>
+        <%= @event.venue.full_address %>
+      </div>
+
+      <div class="pull-left">
+        <%= fa_icon 'clock-o' %>
+      </div>
+      <div class="time-details">
+        <%= @event.starts_at.strftime('%A, %d %b %Y %l:%M %p') %>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="center_div">Your order has been completed successfully!</h3>
+</div>

@@ -80,12 +80,9 @@ class EventsController < ApplicationController
     @ticket_order = TicketOrder.create_order(params[:buyer], params[:tickets], params[:event_id])
     @event = @ticket_order.event
 
-    respond_to do |format|
-      format.html { render 'tickets/order_successful' }
-    end
-  rescue => exception
-    flash[:error] = "Error: #{exception.message}"
-    redirect_to :back
+    # respond_to do |format|
+    #   return format.html { render 'tickets/order_successful' }
+    # end
   end
 
   def created_by_me
@@ -93,7 +90,11 @@ class EventsController < ApplicationController
   end
 
   def is_my_event(event)
-    event.creator.id == current_user.id
+    if logged_in?
+      event.creator.id == current_user.id
+    else
+      false
+    end
   end
 
   private
